@@ -8,7 +8,8 @@
                                       {:maps "are fine"}
                                       [:actually 'anything-is-okay]
                                       (let [invert-override (comp p/black p/bg-white)]
-                                        [[[(p/str (p/underline (invert-override "exotic nestings..") (p/green "kinda >_>")))]]])))
+                                        [[[(p/str (p/underline (invert-override "exotic nestings..")) 
+                                                  (p/green "kinda >_>"))]]])))
                   "red again"
                   (p/underline "red+ul"))
             "back home")
