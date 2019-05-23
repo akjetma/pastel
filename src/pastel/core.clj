@@ -124,3 +124,18 @@
 (def bg-yellow (make-stylus-fn :bg-yellow))
 (def bg-magenta (make-stylus-fn :bg-magenta))
 (def bg-cyan (make-stylus-fn :bg-cyan))
+
+; (p/println "normal"
+;            (p/red "red"
+;                   (p/bg-blue "red+bluebg"
+;                              (p/underline "red+bluebg+ul" "ditto")
+;                              "red+bluebg again"
+;                              (p/green "green+bluebg"
+;                                       {:maps "are fine"}
+;                                       [:actually 'anything-is-okay]
+;                                       (let [invert-override (comp p/black p/bg-white)]
+;                                         (invert-override "do whatever"
+;                                                          "seems fun")
+;                                         [[[(p/str (p/underline (invert-override "nesting is okay too")))]]])))
+;                   "red again"
+;                   (p/underline "red+ul")))
