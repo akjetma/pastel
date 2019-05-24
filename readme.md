@@ -1,18 +1,20 @@
 ```clojure
-(p/println "normal"
-           (p/red "red"
-                  (p/bg-blue "red+bluebg"
-                             (p/underline "red+bluebg+ul" "ditto")
+(p-println "normal"
+           (red "red"
+                  (bg-blue "red+bluebg"
+                             (underline "red+bluebg+ul" "ditto")
                              "red+bluebg again"
-                             (p/green "green+bluebg"
+                             (green "green+bluebg"
                                       {:maps "are fine"}
                                       [:actually 'anything-is-okay]
-                                      (let [invert-override (comp p/black p/bg-white)]
-                                        [[[(p/str (p/underline (invert-override "exotic nestings.."))
-                                                  (p/green "kinda >_>"))]]])))
+                                      (let [invert-override (comp black bg-white)]
+                                        [[[(p-str (underline (invert-override "exotic nestings.."))
+                                                  (green "kinda >_>"))]]])))
                   "red again"
-                  (p/underline "red+ul"))
+                  (underline "red+ul"))
             "back home")
 ```
 
 ![example](demo.png)
+
+
