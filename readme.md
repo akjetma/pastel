@@ -1,5 +1,5 @@
 ```clojure
-(p-println "normal"
+(str "normal"
            (red "red"
                   (bg-blue "red+bluebg"
                              (underline "red+bluebg+ul" "ditto")

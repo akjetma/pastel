@@ -61,62 +61,33 @@
   (ansi-cmd (second (get ANSI-CODES style))))
 
 (defn wrap-style
-  [body style]
+  [style body]
   (str (ansi-open style)
        body
        (ansi-close style)))
 
-(defn wrap-styles
-  [body style-seq]
-  (reduce wrap-style body style-seq))
+(deftype PastelSeq [children]
+  Object
+  (toString [this] (apply str children)))
 
-(defn new-pastel-obj
-  [root-style body]
-  {:styles [root-style]
-   :body body})
+(defmethod print-method PastelSeq
+  [ps ^java.io.Writer w]
+  (.write w (str ps)))
 
 (defn pastel-seq?
   [section]
-  (true? (:pastel-seq (meta section))))
-
-(defn add-style
-  [style pastel-obj]
-  (update pastel-obj :styles conj style))
+  (instance? PastelSeq section))
 
 (defn make-stylus-fn
   [style]
   (fn stylus
     [& body]
-    (with-meta
-      (mapcat (fn [section]
-                (if (pastel-seq? section)
-                  (map (partial add-style style) section)
-                  (list (new-pastel-obj style section))))
-              (interpose " " body))
-      {:pastel-seq true})))
-
-(defn render
-  [pastel-seq]
-  (->> pastel-seq
-       (map (fn [{:keys [body styles]}] 
-              (wrap-styles body styles)))
-       (apply str)))
-
-(defn p-str
-  [& body]
-  (->> body
-       (map (fn [section]
-              (if (pastel-seq? section)
-                (render section)
-                section)))
-       (apply str)))
-
-(defn p-println
-  [& body]
-  (->> body
-       (interpose " ")
-       (apply p-str)
-       (println)))
+    (PastelSeq.
+     (mapcat (fn [section]
+               (if (pastel-seq? section)
+                 (map (partial wrap-style style) (.children section))
+                 (list (wrap-style style section))))
+             body))))
 
 (def reset (make-stylus-fn :reset))
 (def bold (make-stylus-fn :bold))
