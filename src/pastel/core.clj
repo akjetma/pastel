@@ -71,8 +71,8 @@
   (toString [this] (apply str children)))
 
 (defmethod print-method PastelSeq
-  [ps ^java.io.Writer w]
-  (.write w (str ps)))
+  [this ^java.io.Writer w]
+  (print-method (.toString this) w))
 
 (defn pastel-seq?
   [section]
